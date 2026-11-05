@@ -1,4 +1,4 @@
-import { discount, formatCents, shipping, subtotal, total } from './cart.js';
+import { discount, formatCents, shipping, shippingNote, subtotal, total } from './cart.js';
 
 const products = [
   { id: 'mug', name: 'Enamel mug', priceCents: 1800 },
@@ -36,6 +36,7 @@ function render() {
   document.querySelector('#discount').textContent = formatCents(discount(sub, appliedCode));
   document.querySelector('#shipping').textContent = formatCents(shipping(sub));
   document.querySelector('#total').textContent = formatCents(total(cart, appliedCode));
+  document.querySelector('#shipping-note').textContent = shippingNote(sub);
 }
 
 render();
