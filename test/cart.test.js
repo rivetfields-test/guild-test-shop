@@ -1,6 +1,6 @@
 import assert from 'node:assert/strict';
 import { test } from 'node:test';
-import { discount, formatCents, shipping, subtotal, total } from '../cart.js';
+import { discount, formatCents, shipping, shippingNote, subtotal, total } from '../cart.js';
 
 const mug = { priceCents: 1800, quantity: 2 };
 
@@ -50,4 +50,14 @@ test('SAVE10 takes exactly 10% off subtotals of any size', () => {
   assert.equal(discount(1000, 'SAVE10'), 100);
   assert.equal(discount(12345, 'SAVE10'), 1235);
   assert.equal(discount(0, 'SAVE10'), 0);
+});
+
+test('KIG-5: under $50 the cart shows the free-shipping threshold', () => {
+  assert.equal(shippingNote(0), 'Free shipping on orders over $50');
+  assert.equal(shippingNote(4999), 'Free shipping on orders over $50');
+});
+
+test('KIG-5: at $50 or more the cart says shipping is free', () => {
+  assert.equal(shippingNote(5000), 'You get free shipping');
+  assert.equal(shippingNote(12000), 'You get free shipping');
 });

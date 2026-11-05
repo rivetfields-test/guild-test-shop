@@ -12,6 +12,13 @@ export function shipping(subtotalCents) {
   return subtotalCents >= FREE_SHIPPING_FROM_CENTS ? 0 : SHIPPING_CENTS;
 }
 
+// KIG-5: the cart says how far the order is from free shipping.
+export function shippingNote(subtotalCents) {
+  return subtotalCents >= FREE_SHIPPING_FROM_CENTS
+    ? 'You get free shipping'
+    : `Free shipping on orders over ${formatCents(FREE_SHIPPING_FROM_CENTS).replace('.00', '')}`;
+}
+
 export function discount(subtotalCents, code) {
   if (!Object.hasOwn(COUPONS, code)) return 0;
   return Math.round((subtotalCents * COUPONS[code]) / 100);
