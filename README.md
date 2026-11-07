@@ -11,3 +11,7 @@ No dependencies. Serve the folder with any static server, for example `npx serve
 ## Check it
 
     npm test
+
+## Checks
+
+Run the tests with `npm test`.
